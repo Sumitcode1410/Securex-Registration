@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070914">
+<title>CYBER QUEST | SecureX Cyber Club</title>
+ 
+<!-- QR Code Generator & Scanner Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+ 
+<style>
+:root{
+  --bg:#070914; --panel:#0d1020; --panel2:#12162a; --line:#2a2d48;
+  --text:#f5f7ff; --muted:#9aa3bd; --cyan:#20e7ff; --purple:#7c5cff;
+  --lime:#b9ff5c; --danger:#ff6b8a; --green:#7dffbd;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 90% 0%,rgba(32,231,255,.08),transparent 28%),
+    radial-gradient(circle at 0% 25%,rgba(124,92,255,.08),transparent 25%),
+    var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif
+}
+.container{width:min(960px,calc(100% - 28px));margin:auto}
+.topbar{
+  position:sticky;top:0;z-index:20;background:rgba(7,9,20,.88);
+  backdrop-filter:blur(14px);border-bottom:1px solid #20243b;
+  box-shadow:0 8px 30px rgba(32,231,255,.04)
+}
+.topbar-inner{height:66px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:900;letter-spacing:2px;font-size:20px}
+.brand span{color:var(--cyan)}
+.pill{border:1px solid #303653;border-radius:999px;padding:8px 12px;color:#c5cae0;font-size:12px}
+.menu{border:1px solid #343b60;background:#0d1020;color:#fff;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:700;cursor:pointer}
+.hero{padding:24px 0 16px}
+.form-wrap{padding:14px 0 40px}
+.form-card,.event-info-card,.pass-card,.scanner-card{
+  background:linear-gradient(145deg,#0d1020,#090a08);border:1px solid var(--line);
+  border-radius:22px;box-shadow:0 16px 55px rgba(0,0,0,.28)
+}
+.event-info-card{
+  padding:22px;
+  background:
+    radial-gradient(circle at 85% 10%,rgba(32,231,255,.10),transparent 30%),
+    radial-gradient(circle at 10% 90%,rgba(124,92,255,.12),transparent 32%),
+    linear-gradient(145deg,#10162d,#080b18)
+}
+.event-brand{color:var(--cyan);font-size:10px;font-weight:900;letter-spacing:2px;margin-bottom:7px}
+.event-info-card h1{margin:0;font-size:clamp(28px,6vw,46px);letter-spacing:.5px}
+.event-tagline{margin:7px 0 10px;color:var(--lime);font-weight:900;letter-spacing:1px;font-size:13px}
+.event-desc{margin:0 0 18px;color:#c3c9e6;font-size:12.5px;line-height:1.6}
+.fee-badge{
+  display:inline-block;margin-bottom:14px;padding:6px 12px;border-radius:999px;
+  background:#0e2a1e;border:1px solid #1e5a3d;color:var(--green);font-size:11px;font-weight:900
+}
+.event-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.meta-item{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid #2b3456;border-radius:14px;background:#0b1022}
+.meta-icon{font-size:21px}
+.meta-item small{display:block;color:#7f8aa9;font-size:9px;letter-spacing:1.5px;font-weight:900;margin-bottom:4px}
+.meta-item strong{display:block;color:#f0f4ff;font-size:13px}
+.meta-item em{display:block;color:var(--cyan);font-style:normal;font-size:11px;margin-top:3px}
+.experience-box{margin-top:12px;padding:14px;border:1px solid #30395f;border-radius:14px;background:#0b1022}
+.experience-title{color:var(--lime);font-size:10px;font-weight:900;letter-spacing:1.4px;margin-bottom:10px}
+.experience-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.experience-list span{padding:10px;border-radius:10px;background:#101735;border:1px solid #252f52;color:#dbe2f5;font-size:11px}
+.convener-box{margin-top:12px;padding:12px 14px;border:1px solid #463b70;border-radius:12px;background:#15112b}
+.convener-box span{display:block;color:#a99bff;font-size:9px;font-weight:900;letter-spacing:1.5px}
+.convener-box strong{display:block;color:#fff;margin-top:4px;font-size:14px}
+.college-line{display:flex;justify-content:space-between;gap:12px;margin-top:13px;padding-top:12px;border-top:1px solid #252c48;font-size:11px}
+.college-line strong{color:#e9edff}
+.college-line span{color:var(--cyan);font-weight:800}
+.form-card{padding:14px}
+.field{background:#070914;border:1px solid #292d48;border-radius:13px;padding:15px;margin-bottom:12px}
+label{display:block;font-size:11px;font-weight:800;color:#ddd8ce;margin-bottom:10px}
+.req{color:var(--danger)}
+input,select{width:100%;background:transparent;border:0;border-bottom:1px solid #3f4564;color:#eee9de;padding:8px 0;outline:none;font-size:14px}
+input::placeholder{color:#59617f}
+select option{background:#10110e;color:white}
+.options{display:flex;flex-wrap:wrap;gap:8px}
+.option{flex:1 1 120px;border:1px solid #2c3150;background:#12162a;border-radius:10px;padding:11px;color:#9da6c0;font-size:11px;cursor:pointer;text-align:left}
+.option input{display:none}
+.option.active{border-color:var(--cyan);color:#f1fbff;background:#101c32}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{border:0;border-radius:10px;padding:13px 22px;background:linear-gradient(90deg,#6754ff,#ff3fa4);color:#fff;font-weight:900;letter-spacing:.4px;cursor:pointer;text-decoration:none}
+.btn.alt{background:#12162a;border:1px solid #303653;color:#cbd2e8}
+.btn:disabled{opacity:.55;pointer-events:none}
+.status{font-size:11px;color:#8e8b81}
+.success{border:1px solid #204d64;background:#101d32;color:#c5f7ff;border-radius:12px;padding:13px;font-size:12px;margin-bottom:12px;display:none}
+.success.show{display:block}
+.submit-success-title{font-size:15px;font-weight:900;color:var(--green);margin-bottom:5px}
+.submit-success-id{font-size:12px;color:#d9f7ff}
+footer{padding:35px 0 50px;text-align:center;color:#68708c;font-size:11px}
+footer b{color:var(--cyan)}
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px}
+.overlay.open{display:flex}
+.drawer{width:min(620px,100%);max-height:calc(100vh - 36px);overflow:auto;background:linear-gradient(145deg,#0f1327,#080b18);border:1px solid #343b60;border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.65)}
+.drawer-head,.scanner-head{display:flex;align-items:center;justify-content:space-between;padding:18px;border-bottom:1px solid #252b46}
+.drawer-head h2{margin:4px 0 0;font-size:22px}
+.kicker{font-size:9px;color:var(--cyan);letter-spacing:2px;font-weight:900}
+.close-tools,.lookup-close,.scanner-close{width:40px;height:40px;border-radius:12px;border:1px solid #303653;background:#151a31;color:#dfe5ff;font-size:28px;line-height:1;cursor:pointer}
+.tools-section{padding:18px}
+.tools-title{font-size:16px;letter-spacing:1px;color:#d9d5ca;margin:0 0 14px 2px}
+.tool-list{display:grid;gap:12px}
+.tool-card{width:100%;display:flex;align-items:center;gap:16px;padding:16px;border:1px solid #363730;border-radius:18px;background:#070914;color:#fff;cursor:pointer;text-align:left;transition:.2s}
+.tool-card:hover{transform:translateY(-2px);border-color:#56574e}
+.tool-icon{width:56px;height:56px;flex:0 0 56px;border-radius:17px;display:grid;place-items:center;font-size:25px;background:#0b1224;border:1px solid #222a47}
+.tool-copy{min-width:0;flex:1}
+.tool-name{font-size:19px;font-weight:800;line-height:1.15}
+.tool-desc{font-size:13px;color:#9b978d;margin-top:5px}
+.tool-arrow{font-size:32px;color:#d7d3c8}
+.tool-badge{display:inline-block;margin-left:7px;padding:4px 8px;border-radius:7px;font-size:10px;background:#073c26;color:#9be8bd}
+.tool-note{font-size:10px;color:#77746c;margin:10px 3px 0}
+.modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}
+.modal.open{display:flex}
+.modal-card{width:min(600px,100%);position:relative;max-height:calc(100vh - 36px);overflow:auto;padding:18px;background:linear-gradient(145deg,#0f1327,#080b18);border:1px solid #343b60;border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.65)}
+.modal-card h3{padding-right:45px;margin-top:0}
+.lookup-row{display:flex;gap:8px}
+.lookup-row input,.auth-row input{border:1px solid #34352e;border-radius:10px;padding:13px;background:#0b1022;flex:1;color:#eee9de}
+.result{margin-top:14px}
+.result-box{padding:14px;border:1px solid #30395f;border-radius:14px;background:#0b1022}
+.pass-card{max-width:600px;margin:0 auto;overflow:hidden}
+.pass-top{display:flex;justify-content:space-between;padding:18px;border-bottom:1px dashed #55564c}
+.pass-brand{font-weight:900;color:var(--cyan);letter-spacing:2px}
+.pass-label{font-size:10px;color:var(--lime);font-weight:900}
+.pass-body{padding:22px}
+.pass-body h2{margin:0 0 4px;font-size:26px}
+.pass-event{color:var(--cyan);font-size:14px;margin-bottom:18px}
+.pass-grid{display:grid;grid-template-columns:1fr 140px;gap:18px;align-items:center}
+.pass-details p{font-size:12px;color:#b8b4a9;line-height:1.5;margin:9px 0}
+.pass-details b{color:#fff}
+#qrcode{background:#fff;padding:7px;width:140px;height:140px;border-radius:8px}
+.pass-bottom{padding:13px 18px;background:#070914;color:#7c849c;font-size:10px;display:flex;justify-content:space-between}
+.pass-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.scanner-card{width:min(560px,100%);max-height:calc(100vh - 28px);overflow:auto;padding:18px}
+.scanner-head{padding:0 0 14px}
+#reader{margin-top:14px;border-radius:14px;overflow:hidden;border:1px solid #2e3a5d;background:#050711;min-height:220px}
+.scanner-status{margin-top:10px;padding:11px;border-radius:10px;background:#0b1022;color:#9ea8c2;font-size:12px;line-height:1.4}
+.auth-row{display:flex;gap:8px;margin:12px 0}
+.admin-table-wrap{overflow:auto;max-height:52vh;margin-top:12px;border:1px solid #292d48;border-radius:12px}
+table.admin-table{width:100%;border-collapse:collapse;font-size:11px}
+table.admin-table th{position:sticky;top:0;background:#12162a;color:#cfd6f0;text-align:left;padding:9px;border-bottom:1px solid #292d48}
+table.admin-table td{padding:9px;border-bottom:1px solid #1c2038;color:#dbe0f5;white-space:nowrap}
+table.admin-table tr:nth-child(even){background:#0b0e1c}
+.badge-checked{color:var(--green);font-weight:800}
+.badge-registered{color:#ffd166;font-weight:800}
+.error{color:#ff9bad}
+.help{font-size:12px;color:#9aa3bd;line-height:1.5}
+.hidden{display:none}
+@media(max-width:650px){
+  .container{width:min(100% - 18px,960px)}
+  .topbar-inner{height:58px}
+  .pill{display:none}
+  .event-info-card{padding:17px;border-radius:18px}
+  .event-meta{grid-template-columns:1fr}
+  .experience-list{grid-template-columns:1fr}
+  .college-line{flex-direction:column;gap:4px}
+  .form-card{padding:9px}
+  .actions{align-items:flex-end}
+  .status{max-width:160px}
+  .lookup-row,.auth-row{flex-direction:column}
+  .pass-grid{grid-template-columns:1fr}
+  #qrcode{margin:auto}
+  .pass-bottom{gap:8px;flex-direction:column}
+}
+@media print{
+  body *{visibility:hidden!important}
+  #passPrintArea,#passPrintArea *{visibility:visible!important}
+  #passPrintArea{position:absolute;left:0;top:0;width:100%;display:block!important}
+}
+</style>
+</head>
+ 
+<body>
+ 
+<div class="topbar">
+  <div class="container topbar-inner">
+    <button class="menu" type="button" onclick="openTools()">☰ &nbsp; MENU & TOOLS</button>
+    <div class="brand">SECURE<span>X</span></div>
+    <div class="pill">SecureX Cyber Club</div>
+  </div>
+</div>
+ 
+<!-- MENU -->
+<div class="overlay" id="toolsOverlay" onclick="closeTools(event)">
+  <div class="drawer" onclick="event.stopPropagation()">
+    <div class="drawer-head">
+      <div><div class="kicker">SECUREX</div><h2>MENU &amp; TOOLS</h2></div>
+      <button class="close-tools" type="button" onclick="closeTools()">×</button>
+    </div>
+    <section class="tools-section">
+      <h2 class="tools-title">EVENT PORTALS</h2>
+      <div class="tool-list">
+        <button class="tool-card" type="button" onclick="goRegistration()">
+          <div class="tool-icon">▤</div>
+          <div class="tool-copy"><div class="tool-name">Event Registration</div><div class="tool-desc">Register for the event</div></div>
+          <div class="tool-arrow">›</div>
+        </button>
+        <button class="tool-card" type="button" onclick="closeTools();openLookup()">
+          <div class="tool-icon">⌕</div>
+          <div class="tool-copy"><div class="tool-name">Find / Get My E-Pass</div><div class="tool-desc">Search by Roll No, Email or Registration ID</div></div>
+          <div class="tool-arrow">›</div>
+        </button>
+        <button class="tool-card" type="button" onclick="closeTools();openScanner()">
+          <div class="tool-icon">⌗</div>
+          <div class="tool-copy"><div class="tool-name">Coordinator Scanner <span class="tool-badge">Door Pass</span></div><div class="tool-desc">QR attendance check-in for coordinators</div></div>
+          <div class="tool-arrow">›</div>
+        </button>
+        <button class="tool-card" type="button" onclick="closeTools();openAdmin()">
+          <div class="tool-icon">♢</div>
+          <div class="tool-copy"><div class="tool-name">HOD / Faculty Panel</div><div class="tool-desc">Attendance records &amp; CSV export</div></div>
+          <div class="tool-arrow">›</div>
+        </button>
+      </div>
+      <div class="tool-note">Coordinator and Faculty tools should be shared only with authorized staff.</div>
+    </section>
+  </div>
+</div>
+ 
+<!-- LOOKUP -->
+<section id="lookupPanel" class="modal" onclick="closeLookup(event)">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <button class="lookup-close" type="button" onclick="closeLookup()">×</button>
+    <h3>Find / Get My E-Pass</h3>
+    <p class="help">Search using Roll Number, Email or Registration ID.</p>
+    <div class="lookup-row">
+      <input id="lookupQuery" placeholder="Enter roll no., email or SX-...">
+      <button class="btn" type="button" onclick="findPass()">SEARCH</button>
+    </div>
+    <div class="result" id="lookupResult"></div>
+  </div>
+</section>
+ 
+<!-- SCANNER -->
+<section class="modal" id="scannerPanel" onclick="closeScanner(event)">
+  <div class="scanner-card" onclick="event.stopPropagation()">
+    <div class="scanner-head">
+      <div><div class="kicker">SECUREX</div><h3>COORDINATOR SCANNER</h3></div>
+      <button class="scanner-close" type="button" onclick="closeScanner()">×</button>
+    </div>
+    <p class="help">Enter coordinator password, then click START to activate camera.</p>
+    <div class="auth-row">
+      <input id="coordinatorPin" type="password" placeholder="Coordinator Password">
+      <button class="btn" id="startScannerBtn" type="button" onclick="startScanner()">START</button>
+    </div>
+    
+    <!-- Live Camera Box -->
+    <div id="reader"></div>
+    <div class="scanner-status" id="scannerStatus">Scanner is not started.</div>
+
+    <div style="margin-top:16px;color:#8f98b2;font-size:11px">Camera not working? Enter the Registration ID manually.</div>
+    <div class="auth-row">
+      <input id="manualRegId" placeholder="SX-...">
+      <button class="btn" type="button" onclick="manualCheck()">CHECK</button>
+    </div>
+  </div>
+</section>
+ 
+<!-- ADMIN -->
+<section id="adminPanel" class="modal" onclick="closeAdmin(event)">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <button class="lookup-close" type="button" onclick="closeAdmin()">×</button>
+    <h3>HOD / Faculty Panel</h3>
+    <div id="adminAuthBox">
+      <p class="help">Enter the faculty password to view attendance records.</p>
+      <div class="auth-row">
+        <input id="facultyPassword" type="password" placeholder="Faculty Password">
+        <button class="btn" type="button" onclick="verifyAdmin()">UNLOCK</button>
+      </div>
+      <div class="status" id="adminAuthStatus"></div>
+    </div>
+    <div id="adminContent" style="display:none">
+      <div class="actions">
+        <button class="btn alt" type="button" onclick="loadAdminData()">REFRESH</button>
+        <button class="btn" type="button" onclick="exportCSV()">DOWNLOAD CSV</button>
+        <span class="status" id="adminCount"></span>
+      </div>
+      <div class="admin-table-wrap"><table class="admin-table" id="adminTable"></table></div>
+    </div>
+  </div>
+</section>
+ 
+<main class="container">
+<section class="hero">
+  <section class="event-info-card">
+    <div class="event-brand">SECUREX CYBER CLUB</div>
+    <h1>CYBER QUEST</h1>
+    <p class="event-tagline">SECUREX '26</p>
+    <p class="event-desc">THINK. EXPLORE. LEARN. AWARE. Cyber Challenges, real-world scenario awareness, exciting prizes and opportunities to learn, compete and grow together.</p>
+    <span class="fee-badge">Registration: FREE</span>
+ 
+    <div class="event-meta">
+      <div class="meta-item">
+        <span class="meta-icon">📅</span>
+        <div><small>DATE</small><strong>2 September 2026</strong><em>Wednesday</em></div>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">⏰</span>
+        <div><small>TIME</small><strong>2 PM Onwards</strong></div>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">📍</span>
+        <div><small>VENUE</small><strong>B-120 Seminar Hall</strong></div>
+      </div>
+    </div>
+ 
+    <div class="experience-box">
+      <div class="experience-title">WHAT YOU'LL EXPERIENCE</div>
+      <div class="experience-list">
+        <span>Cyber Challenges</span>
+        <span>Real-world scenario awareness</span>
+        <span>Exciting Prizes</span>
+        <span>Learn. Compete. Grow Together.</span>
+      </div>
+    </div>
+ 
+    <div class="convener-box">
+      <span>FACULTY CONVENER</span>
+      <strong>Mr. Vikas Bhatnagar</strong>
+    </div>
+ 
+    <div class="college-line">
+      <strong>Moradabad Institute of Technology (MIT)</strong>
+      <span>SecureX Cyber Club</span>
+    </div>
+  </section>
+</section>
+ 
+<!-- REGISTRATION -->
+<div class="form-wrap" id="registrationFormSection">
+  <div class="form-card">
+    <div class="success" id="formSuccess"></div>
+ 
+    <form id="registrationForm" onsubmit="return false;">
+      <div class="field">
+        <label>Full Name <span class="req">*</span></label>
+        <input id="name" required placeholder="Your answer" maxlength="80">
+      </div>
+      <div class="field">
+        <label>Roll Number <span class="req">*</span></label>
+        <input id="roll" required placeholder="e.g. 22CS014" maxlength="30">
+      </div>
+      <div class="field">
+        <label>Email Address <span class="req">*</span></label>
+        <input id="email" type="email" required placeholder="e.g. yourname@gmail.com">
+      </div>
+      <div class="field">
+        <label>WhatsApp / Mobile Number <span class="req">*</span></label>
+        <input id="mobile" inputmode="numeric" required placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}">
+      </div>
+      <div class="field">
+        <label>Academic Year <span class="req">*</span></label>
+        <div class="options" data-group="year" id="yearOptions">
+          <label class="option"><input type="radio" name="year" value="1st Year">1st Year</label>
+          <label class="option"><input type="radio" name="year" value="2nd Year">2nd Year</label>
+          <label class="option"><input type="radio" name="year" value="3rd Year">3rd Year</label>
+          <label class="option"><input type="radio" name="year" value="4th Year">4th Year</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Branch <span class="req">*</span></label>
+        <select id="branch" required>
+          <option value="">Select Branch</option>
+          <option value="CSE">Computer Science (CSE)</option>
+          <option value="CSE-AI">CSE (AI &amp; ML)</option>
+          <option value="CSE-DS">CSE (Data Science)</option>
+          <option value="IT">Information Technology (IT)</option>
+          <option value="ECE">Electronics &amp; Communication (ECE)</option>
+          <option value="ME">Mechanical Engineering (ME)</option>
+          <option value="CE">Civil Engineering (CE)</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Section <span class="req">*</span></label>
+        <select id="section" required>
+          <option value="">Select Section</option>
+          <option value="A">Section A</option>
+          <option value="B">Section B</option>
+          <option value="C">Section C</option>
+          <option value="D">Section D</option>
+          <option value="E">Section E</option>
+          <option value="OTHER">Other</option>
+        </select>
+      </div>
+ 
+      <div class="actions">
+        <span class="status" id="formStatus"></span>
+        <button class="btn" type="button" id="submitBtn" onclick="submitRegistration()">SUBMIT REGISTRATION</button>
+      </div>
+    </form>
+  </div>
+</div>
+ 
+<!-- E-PASS -->
+<div class="form-wrap hidden" id="passSection">
+  <div id="passPrintArea">
+    <div class="pass-card">
+      <div class="pass-top">
+        <div class="pass-brand">SECURE<span style="color:var(--cyan)">X</span></div>
+        <div class="pass-label">EVENT E-PASS</div>
+      </div>
+      <div class="pass-body">
+        <h2 id="passName">—</h2>
+        <div class="pass-event" id="passEvent">—</div>
+        <div class="pass-grid">
+          <div class="pass-details">
+            <p><b>Registration ID:</b> <span id="passRegId">—</span></p>
+            <p><b>Roll Number:</b> <span id="passRoll">—</span></p>
+            <p><b>Branch / Section:</b> <span id="passBranchSection">—</span></p>
+            <p><b>Academic Year:</b> <span id="passYear">—</span></p>
+            <p><b>Email:</b> <span id="passEmail">—</span></p>
+            <p><b>Date / Time:</b> <span id="passDateTime">—</span></p>
+            <p><b>Venue:</b> <span id="passVenue">—</span></p>
+            <p><b>Status:</b> <span id="passStatus">—</span></p>
+          </div>
+          <div id="qrcode"></div>
+        </div>
+      </div>
+      <div class="pass-bottom">
+        <span>Present this pass at entry</span>
+        <span id="passCheckInTime"></span>
+      </div>
+    </div>
+  </div>
+  <div class="pass-actions">
+    <button class="btn alt" type="button" onclick="printPass()">PRINT / SAVE PDF</button>
+    <button class="btn alt" type="button" onclick="hidePass()">CLOSE</button>
+  </div>
+</div>
+ 
+</main>
+ 
+<footer>
+  Built for <b>SecureX Cyber Club</b> &middot; Moradabad Institute of Technology (MIT)
+</footer>
+ 
+<script>
+/* ============================================================
+   CONFIG & API CONNECTOR (PASTE YOUR APPS SCRIPT URL HERE)
+   ============================================================ */
+const API_URL = "https://script.google.com/macros/s/AKfycbyOFTr1WnDlVtR3-aYCtilWLCxrkL7e2yx_Iyee0KOJwbg3e8tg-M0i4KkDRx_QWi87Ow/exec"; // <-- Paste your Web App URL here
+
+async function apiRequest(action, data) {
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify({ action: action, data: data || {} })
+    });
+    return await res.json();
+  } catch (err) {
+    return { success: false, message: "Network error: " + err.message };
+  }
+}
+
+/* ============================================================
+   GLOBAL STATE
+   ============================================================ */
+var html5QrCode = null;
+var isCameraRunning = false;
+var isProcessingScan = false;
+var lastScannedId = "";
+var lastScannedAt = 0;
+var coordinatorAuthPassword = "";
+var facultyAuthPassword = "";
+var lastAdminRows = [];
+ 
+/* ============================================================
+   MENU DRAWER
+   ============================================================ */
+function openTools(){ document.getElementById('toolsOverlay').classList.add('open'); }
+function closeTools(e){
+  if(e && e.target !== e.currentTarget) return;
+  document.getElementById('toolsOverlay').classList.remove('open');
+}
+function goRegistration(){
+  closeTools();
+  var el = document.getElementById('registrationFormSection');
+  if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+ 
+/* ============================================================
+   REGISTRATION FORM
+   ============================================================ */
+document.querySelectorAll('#yearOptions .option').forEach(function(label){
+  label.addEventListener('click', function(){
+    document.querySelectorAll('#yearOptions .option').forEach(function(l){ l.classList.remove('active'); });
+    label.classList.add('active');
+    var input = label.querySelector('input');
+    if (input) input.checked = true;
+  });
+});
+ 
+function getSelectedYear(){
+  var checked = document.querySelector('#yearOptions input[type=radio]:checked');
+  return checked ? checked.value : '';
+}
+ 
+async function submitRegistration(){
+  var name = document.getElementById('name').value.trim();
+  var roll = document.getElementById('roll').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var mobile = document.getElementById('mobile').value.trim();
+  var year = getSelectedYear();
+  var branch = document.getElementById('branch').value;
+  var section = document.getElementById('section').value;
+  var statusEl = document.getElementById('formStatus');
+  var btn = document.getElementById('submitBtn');
+ 
+  if(!name || !roll || !email || !mobile || !year || !branch || !section){
+    statusEl.textContent = 'Please fill all required fields.';
+    statusEl.className = 'status error';
+    return;
+  }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    statusEl.textContent = 'Enter a valid email address.';
+    statusEl.className = 'status error';
+    return;
+  }
+  if(mobile.replace(/\D/g,'').length !== 10){
+    statusEl.textContent = 'Mobile number must be 10 digits.';
+    statusEl.className = 'status error';
+    return;
+  }
+ 
+  btn.disabled = true;
+  statusEl.textContent = 'Submitting...';
+  statusEl.className = 'status';
+ 
+  const res = await apiRequest("saveRegistration", {
+    name: name, roll: roll, email: email, mobile: mobile,
+    year: year, branch: branch, section: section
+  });
+
+  btn.disabled = false;
+  if(res && res.success){
+    var successBox = document.getElementById('formSuccess');
+    successBox.innerHTML =
+      '<div class="submit-success-title">Registration Successful!</div>' +
+      '<div class="submit-success-id">Your Registration ID: ' + escapeHtml(res.registrationId) + '</div>';
+    successBox.classList.add('show');
+    statusEl.textContent = '';
+    renderPass(res);
+    showPass();
+  } else {
+    statusEl.textContent = (res && res.message) ? res.message : 'Registration failed.';
+    statusEl.className = 'status error';
+  }
+}
+ 
+/* ============================================================
+   E-PASS RENDERING
+   ============================================================ */
+function renderPass(data){
+  document.getElementById('passName').textContent = data.name || '—';
+  document.getElementById('passEvent').textContent = data.event || 'CYBER QUEST';
+  document.getElementById('passRegId').textContent = data.registrationId || '—';
+  document.getElementById('passRoll').textContent = data.roll || '—';
+  document.getElementById('passBranchSection').textContent = (data.branch || '—') + ' / ' + (data.section || '—');
+  document.getElementById('passYear').textContent = data.year || '—';
+  document.getElementById('passEmail').textContent = data.email || '—';
+  document.getElementById('passDateTime').textContent = (data.date || '2 September 2026') + ' · ' + (data.time || '2 PM Onwards');
+  document.getElementById('passVenue').textContent = data.venue || 'B-120 Seminar Hall';
+  document.getElementById('passStatus').textContent = data.status || 'REGISTERED';
+  document.getElementById('passCheckInTime').textContent = data.checkInTime ? ('Checked in: ' + data.checkInTime) : '';
+ 
+  var qrEl = document.getElementById('qrcode');
+  qrEl.innerHTML = '';
+  new QRCode(qrEl, {
+    text: data.registrationId || '',
+    width: 128,
+    height: 128,
+    colorDark: '#000000',
+    colorLight: '#ffffff'
+  });
+}
+function showPass(){
+  document.getElementById('passSection').classList.remove('hidden');
+  document.getElementById('passSection').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function hidePass(){ document.getElementById('passSection').classList.add('hidden'); }
+function printPass(){ window.print(); }
+ 
+/* ============================================================
+   LOOKUP / FIND E-PASS
+   ============================================================ */
+function openLookup(){ document.getElementById('lookupPanel').classList.add('open'); }
+function closeLookup(e){
+  if(e && e.target !== e.currentTarget) return;
+  document.getElementById('lookupPanel').classList.remove('open');
+}
+ 
+async function findPass(){
+  var q = document.getElementById('lookupQuery').value.trim();
+  var resultEl = document.getElementById('lookupResult');
+  if(!q){ resultEl.innerHTML = '<div class="result-box error">Enter a Roll Number, Email or Registration ID.</div>'; return; }
+  resultEl.innerHTML = '<div class="result-box">Searching…</div>';
+ 
+  const res = await apiRequest("findRegistration", { query: q });
+
+  if(res && res.success){
+    var badgeClass = String(res.status).toUpperCase() === 'CHECKED-IN' ? 'badge-checked' : 'badge-registered';
+    resultEl.innerHTML =
+      '<div class="result-box">' +
+        '<p><b>' + escapeHtml(res.name) + '</b></p>' +
+        '<p>Reg ID: ' + escapeHtml(res.registrationId) + '</p>' +
+        '<p>Roll: ' + escapeHtml(res.roll) + ' &middot; ' + escapeHtml(res.branch) + ' / ' + escapeHtml(res.section) + '</p>' +
+        '<p>Status: <span class="' + badgeClass + '">' + escapeHtml(res.status) + '</span></p>' +
+        '<button class="btn" type="button" id="viewPassBtn">VIEW E-PASS</button>' +
+      '</div>';
+    document.getElementById('viewPassBtn').addEventListener('click', function(){
+      renderPass(res);
+      closeLookup();
+      showPass();
+    });
+  } else {
+    resultEl.innerHTML = '<div class="result-box error">' + escapeHtml((res && res.message) || 'Not found.') + '</div>';
+  }
+}
+ 
+/* ============================================================
+   COORDINATOR SCANNER (100% NATIVE IN VS CODE)
+   ============================================================ */
+function openScanner(){ document.getElementById('scannerPanel').classList.add('open'); }
+function closeScanner(e){
+  if(e && e.target !== e.currentTarget) return;
+  stopCamera();
+  document.getElementById('scannerPanel').classList.remove('open');
+}
+ 
+function setScannerStatus(msg, isError){
+  var el = document.getElementById('scannerStatus');
+  if(!el) return;
+  el.textContent = msg;
+  el.style.color = isError ? '#ff9bad' : '#9ea8c2';
+}
+ 
+function startScanner(){
+  var pin = document.getElementById('coordinatorPin').value.trim();
+  if(!pin){ 
+    setScannerStatus('❌ Enter coordinator password first.', true); 
+    return; 
+  }
+  if(isCameraRunning){ 
+    setScannerStatus('Scanner is already running.', false); 
+    return; 
+  }
+ 
+  coordinatorAuthPassword = pin;
+ 
+  var btn = document.getElementById('startScannerBtn');
+  if(btn) btn.disabled = true;
+  setScannerStatus('Starting camera…', false);
+ 
+  if (html5QrCode) {
+    try { html5QrCode.clear(); } catch(e){}
+    html5QrCode = null;
+  }
+  html5QrCode = new Html5Qrcode('reader');
+ 
+  var qrConfig = {
+    fps: 15,
+    qrbox: function(w, h) {
+      var edge = Math.floor(Math.min(w, h) * 0.75);
+      return { width: Math.max(edge, 150), height: Math.max(edge, 150) };
+    }
+  };
+ 
+  // Starts directly with rear camera
+  html5QrCode.start(
+    { facingMode: "environment" },
+    qrConfig,
+    onScanSuccess,
+    function(){}
+  ).then(function(){
+    isCameraRunning = true;
+    if(btn) btn.disabled = false;
+    setScannerStatus('✅ Camera active. Point at student QR code.', false);
+  }).catch(function(err){
+    if(btn) btn.disabled = false;
+    setScannerStatus('❌ Camera error: ' + err, true);
+  });
+}
+ 
+function stopCamera(){
+  if(html5QrCode && isCameraRunning){
+    html5QrCode.stop().then(function(){
+      html5QrCode.clear();
+      isCameraRunning = false;
+      setScannerStatus('Scanner stopped.', false);
+    }).catch(function(){
+      isCameraRunning = false;
+    });
+  }
+}
+ 
+function onScanSuccess(decodedText){
+  var now = Date.now();
+  if(isProcessingScan) return;
+  if(decodedText === lastScannedId && (now - lastScannedAt) < 4000) return;
+ 
+  lastScannedId = decodedText;
+  lastScannedAt = now;
+  performCheckIn(decodedText.trim());
+}
+ 
+function manualCheck(){
+  var pin = document.getElementById('coordinatorPin').value.trim();
+  var regId = document.getElementById('manualRegId').value.trim();
+  if(!pin){ setScannerStatus('❌ Enter coordinator password first.', true); return; }
+  if(!regId){ setScannerStatus('❌ Enter Registration ID.', true); return; }
+  coordinatorAuthPassword = pin;
+  performCheckIn(regId);
+}
+ 
+async function performCheckIn(regId){
+  if(isProcessingScan) return;
+  isProcessingScan = true;
+  setScannerStatus('Checking in ' + regId + ' …', false);
+ 
+  const res = await apiRequest("markAttendanceSecure", {
+    registrationId: regId,
+    password: coordinatorAuthPassword
+  });
+
+  isProcessingScan = false;
+  if(res && res.success){
+    setScannerStatus((res.alreadyCheckedIn ? '⚠️ ' : '✅ ') + res.message, res.alreadyCheckedIn);
+  } else {
+    setScannerStatus('❌ ' + ((res && res.message) || 'Check-in failed.'), true);
+  }
+}
+ 
+/* ============================================================
+   FACULTY / ADMIN PANEL
+   ============================================================ */
+function openAdmin(){ document.getElementById('adminPanel').classList.add('open'); }
+function closeAdmin(e){
+  if(e && e.target !== e.currentTarget) return;
+  document.getElementById('adminPanel').classList.remove('open');
+}
+ 
+async function verifyAdmin(){
+  var pw = document.getElementById('facultyPassword').value.trim();
+  var statusEl = document.getElementById('adminAuthStatus');
+  if(!pw){ statusEl.textContent = 'Enter the faculty password.'; statusEl.className='status error'; return; }
+  statusEl.textContent = 'Verifying…'; statusEl.className = 'status';
+ 
+  const res = await apiRequest("verifyFacultyPassword", { password: pw });
+
+  if(res && res.success){
+    facultyAuthPassword = pw;
+    document.getElementById('adminAuthBox').style.display = 'none';
+    document.getElementById('adminContent').style.display = 'block';
+    loadAdminData();
+  } else {
+    statusEl.textContent = (res && res.message) || 'Invalid password.';
+    statusEl.className = 'status error';
+  }
+}
+ 
+async function loadAdminData(){
+  var countEl = document.getElementById('adminCount');
+  countEl.textContent = 'Loading…';
+ 
+  const res = await apiRequest("getAllRegistrationsSecure", { password: facultyAuthPassword });
+
+  if(res && res.success){
+    lastAdminRows = res.registrations || [];
+    renderAdminTable(lastAdminRows);
+    countEl.textContent = lastAdminRows.length + ' registrations';
+  } else {
+    countEl.textContent = (res && res.message) || 'Failed to load.';
+  }
+}
+ 
+function renderAdminTable(rows){
+  var table = document.getElementById('adminTable');
+  var head = '<tr><th>Time</th><th>Reg ID</th><th>Name</th><th>Roll</th><th>Email</th><th>Mobile</th>' +
+             '<th>Year</th><th>Branch</th><th>Sec</th><th>Status</th><th>Check-in</th></tr>';
+  var body = rows.map(function(r){
+    var badge = String(r.status).toUpperCase() === 'CHECKED-IN' ? 'badge-checked' : 'badge-registered';
+    return '<tr>' +
+      '<td>' + escapeHtml(r.timestamp) + '</td>' +
+      '<td>' + escapeHtml(r.registrationId) + '</td>' +
+      '<td>' + escapeHtml(r.name) + '</td>' +
+      '<td>' + escapeHtml(r.roll) + '</td>' +
+      '<td>' + escapeHtml(r.email) + '</td>' +
+      '<td>' + escapeHtml(r.mobile) + '</td>' +
+      '<td>' + escapeHtml(r.year) + '</td>' +
+      '<td>' + escapeHtml(r.branch) + '</td>' +
+      '<td>' + escapeHtml(r.section) + '</td>' +
+      '<td class="' + badge + '">' + escapeHtml(r.status) + '</td>' +
+      '<td>' + escapeHtml(r.checkInTime) + '</td>' +
+      '</tr>';
+  }).join('');
+  table.innerHTML = head + body;
+}
+ 
+function exportCSV(){
+  if(!lastAdminRows.length){ alert('Load data first.'); return; }
+  var headers = ['Timestamp','Registration ID','Name','Roll','Email','Mobile','Year','Branch','Section','Status','Check-in Time'];
+  var lines = [headers.join(',')];
+  lastAdminRows.forEach(function(r){
+    var row = [r.timestamp,r.registrationId,r.name,r.roll,r.email,r.mobile,r.year,r.branch,r.section,r.status,r.checkInTime]
+      .map(function(v){ return '"' + String(v||'').replace(/"/g,'""') + '"'; });
+    lines.push(row.join(','));
+  });
+  var blob = new Blob([lines.join('\n')], {type:'text/csv'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'securex_attendance.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+ 
+function escapeHtml(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+</script>
+</body>
+</html>
