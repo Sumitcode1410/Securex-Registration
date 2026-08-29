@@ -14,7 +14,7 @@
 :root{
   --bg:#070914; --panel:#0d1020; --panel2:#12162a; --line:#2a2d48;
   --text:#f5f7ff; --muted:#9aa3bd; --cyan:#20e7ff; --purple:#7c5cff;
-  --lime:#b9ff5c; --danger:#ff6b8a; --green:#7dffbd;
+  --lime:#b9ff5c; --danger:#ff6b8a; --green:#7dffbd; --pink:#ff3fa4;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -34,10 +34,21 @@ body{
   box-shadow:0 8px 30px rgba(32,231,255,.04)
 }
 .topbar-inner{height:66px;display:flex;align-items:center;justify-content:space-between}
+.brand-group{display:flex;align-items:center;gap:12px}
+.brand-logo{
+  width:40px;height:40px;border-radius:10px;object-fit:cover;
+  border:1px solid rgba(32,231,255,.4);box-shadow:0 0 12px rgba(32,231,255,.25);
+  background:#090d1f;
+}
 .brand{font-weight:900;letter-spacing:2px;font-size:20px}
 .brand span{color:var(--cyan)}
 .pill{border:1px solid #303653;border-radius:999px;padding:8px 12px;color:#c5cae0;font-size:12px}
-.menu{border:1px solid #343b60;background:#0d1020;color:#fff;border-radius:9px;padding:9px 12px;font-size:12px;font-weight:700;cursor:pointer}
+.menu{
+  display:flex;align-items:center;gap:8px;border:1px solid #343b60;background:#0d1020;
+  color:#fff;border-radius:9px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;
+  transition:.2s;
+}
+.menu:hover{border-color:var(--cyan);background:#131936}
 .hero{padding:24px 0 16px}
 .form-wrap{padding:14px 0 40px}
 .form-card,.event-info-card,.pass-card,.scanner-card{
@@ -45,11 +56,17 @@ body{
   border-radius:22px;box-shadow:0 16px 55px rgba(0,0,0,.28)
 }
 .event-info-card{
-  padding:22px;
+  padding:24px;
   background:
     radial-gradient(circle at 85% 10%,rgba(32,231,255,.10),transparent 30%),
     radial-gradient(circle at 10% 90%,rgba(124,92,255,.12),transparent 32%),
     linear-gradient(145deg,#10162d,#080b18)
+}
+.event-header-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.hero-logo{
+  width:72px;height:72px;border-radius:16px;object-fit:cover;
+  border:1.5px solid rgba(32,231,255,.5);box-shadow:0 0 24px rgba(32,231,255,.3);
+  background:#090d1f;flex-shrink:0;
 }
 .event-brand{color:var(--cyan);font-size:10px;font-weight:900;letter-spacing:2px;margin-bottom:7px}
 .event-info-card h1{margin:0;font-size:clamp(28px,6vw,46px);letter-spacing:.5px}
@@ -59,12 +76,40 @@ body{
   display:inline-block;margin-bottom:14px;padding:6px 12px;border-radius:999px;
   background:#0e2a1e;border:1px solid #1e5a3d;color:var(--green);font-size:11px;font-weight:900
 }
-.event-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.meta-item{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid #2b3456;border-radius:14px;background:#0b1022}
-.meta-icon{font-size:21px}
-.meta-item small{display:block;color:#7f8aa9;font-size:9px;letter-spacing:1.5px;font-weight:900;margin-bottom:4px}
+
+/* ============================================================
+   UNIQUE & DISTINCT DATE, TIME, VENUE ICONS & CARDS
+   ============================================================ */
+.event-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.meta-item{
+  display:flex;gap:14px;align-items:center;padding:15px;border-radius:16px;
+  background:linear-gradient(135deg,#0c1228,#101938);border:1px solid #283660;
+  transition:.25s;box-shadow:0 4px 18px rgba(0,0,0,.3);
+}
+.meta-item:hover{
+  transform:translateY(-2px);border-color:var(--cyan);
+  box-shadow:0 8px 24px rgba(32,231,255,.2);
+}
+.meta-icon-box{
+  width:48px;height:48px;flex:0 0 48px;border-radius:14px;display:grid;place-items:center;
+}
+.meta-icon-date{
+  background:linear-gradient(135deg,rgba(32,231,255,.18),rgba(32,231,255,.05));
+  border:1.5px solid var(--cyan);color:var(--cyan);box-shadow:0 0 18px rgba(32,231,255,.35);
+}
+.meta-icon-time{
+  background:linear-gradient(135deg,rgba(185,255,92,.18),rgba(185,255,92,.05));
+  border:1.5px solid var(--lime);color:var(--lime);box-shadow:0 0 18px rgba(185,255,92,.35);
+}
+.meta-icon-venue{
+  background:linear-gradient(135deg,rgba(255,63,164,.18),rgba(124,92,255,.1));
+  border:1.5px solid var(--pink);color:var(--pink);box-shadow:0 0 18px rgba(255,63,164,.35);
+}
+.meta-icon-box svg{width:24px;height:24px;stroke:currentColor;fill:none}
+.meta-item small{display:block;color:#8593b8;font-size:9.5px;letter-spacing:1.5px;font-weight:900;margin-bottom:3px}
 .meta-item strong{display:block;color:#f0f4ff;font-size:13px}
-.meta-item em{display:block;color:var(--cyan);font-style:normal;font-size:11px;margin-top:3px}
+.meta-item em{display:block;color:var(--cyan);font-style:normal;font-size:11px;margin-top:2px}
+
 .experience-box{margin-top:12px;padding:14px;border:1px solid #30395f;border-radius:14px;background:#0b1022}
 .experience-title{color:var(--lime);font-size:10px;font-weight:900;letter-spacing:1.4px;margin-bottom:10px}
 .experience-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
@@ -75,7 +120,8 @@ body{
 .college-line{display:flex;justify-content:space-between;gap:12px;margin-top:13px;padding-top:12px;border-top:1px solid #252c48;font-size:11px}
 .college-line strong{color:#e9edff}
 .college-line span{color:var(--cyan);font-weight:800}
-.form-card{padding:14px}
+
+.form-card{padding:18px}
 .field{background:#070914;border:1px solid #292d48;border-radius:13px;padding:15px;margin-bottom:12px}
 label{display:block;font-size:11px;font-weight:800;color:#ddd8ce;margin-bottom:10px}
 .req{color:var(--danger)}
@@ -83,49 +129,64 @@ input,select{width:100%;background:transparent;border:0;border-bottom:1px solid 
 input::placeholder{color:#59617f}
 select option{background:#10110e;color:white}
 .options{display:flex;flex-wrap:wrap;gap:8px}
-.option{flex:1 1 120px;border:1px solid #2c3150;background:#12162a;border-radius:10px;padding:11px;color:#9da6c0;font-size:11px;cursor:pointer;text-align:left}
+.option{flex:1 1 140px;border:1px solid #2c3150;background:#12162a;border-radius:10px;padding:12px;color:#9da6c0;font-size:12px;font-weight:700;cursor:pointer;text-align:center;transition:.2s}
 .option input{display:none}
-.option.active{border-color:var(--cyan);color:#f1fbff;background:#101c32}
+.option.active{border-color:var(--cyan);color:#f1fbff;background:#101c32;box-shadow:0 0 12px rgba(32,231,255,.18)}
 .actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
-.btn{border:0;border-radius:10px;padding:13px 22px;background:linear-gradient(90deg,#6754ff,#ff3fa4);color:#fff;font-weight:900;letter-spacing:.4px;cursor:pointer;text-decoration:none}
+.btn{border:0;border-radius:10px;padding:13px 22px;background:linear-gradient(90deg,#6754ff,#ff3fa4);color:#fff;font-weight:900;letter-spacing:.4px;cursor:pointer;text-decoration:none;transition:.2s}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}
 .btn.alt{background:#12162a;border:1px solid #303653;color:#cbd2e8}
+.btn.alt:hover{border-color:#5c6899;background:#181e3a}
 .btn:disabled{opacity:.55;pointer-events:none}
 .status{font-size:11px;color:#8e8b81}
-.success{border:1px solid #204d64;background:#101d32;color:#c5f7ff;border-radius:12px;padding:13px;font-size:12px;margin-bottom:12px;display:none}
-.success.show{display:block}
-.submit-success-title{font-size:15px;font-weight:900;color:var(--green);margin-bottom:5px}
-.submit-success-id{font-size:12px;color:#d9f7ff}
+
+/* SUBMIT FULL SUCCESS CARD */
+.success{
+  border:1.5px solid var(--green);background:linear-gradient(145deg,#0a1526,#07101d);
+  color:#c5f7ff;border-radius:16px;padding:18px;font-size:12px;margin-bottom:16px;display:none;
+  box-shadow:0 0 25px rgba(125,255,189,.2);
+}
+.success.show{display:block;animation:popIn .3s ease-out}
+.submit-success-title{font-size:18px;font-weight:900;color:var(--green);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.submit-details-box{margin-top:12px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.submit-detail-row{background:#0e1933;padding:8px 10px;border-radius:8px;border:1px solid #1f2f56}
+.submit-detail-row span{display:block;font-size:9.5px;color:#8292b8;font-weight:800;text-transform:uppercase}
+.submit-detail-row strong{display:block;font-size:12px;color:#ffffff;margin-top:2px}
+
 footer{padding:35px 0 50px;text-align:center;color:#68708c;font-size:11px}
 footer b{color:var(--cyan)}
-.overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px}
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px}
 .overlay.open{display:flex}
 .drawer{width:min(620px,100%);max-height:calc(100vh - 36px);overflow:auto;background:linear-gradient(145deg,#0f1327,#080b18);border:1px solid #343b60;border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.65)}
 .drawer-head,.scanner-head{display:flex;align-items:center;justify-content:space-between;padding:18px;border-bottom:1px solid #252b46}
 .drawer-head h2{margin:4px 0 0;font-size:22px}
 .kicker{font-size:9px;color:var(--cyan);letter-spacing:2px;font-weight:900}
-.close-tools,.lookup-close,.scanner-close{width:40px;height:40px;border-radius:12px;border:1px solid #303653;background:#151a31;color:#dfe5ff;font-size:28px;line-height:1;cursor:pointer}
+.close-tools,.lookup-close,.scanner-close{width:40px;height:40px;border-radius:12px;border:1px solid #303653;background:#151a31;color:#dfe5ff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center}
 .tools-section{padding:18px}
-.tools-title{font-size:16px;letter-spacing:1px;color:#d9d5ca;margin:0 0 14px 2px}
+.tools-title{font-size:14px;letter-spacing:1.5px;color:#9aa3bd;margin:0 0 14px 2px;font-weight:800}
 .tool-list{display:grid;gap:12px}
-.tool-card{width:100%;display:flex;align-items:center;gap:16px;padding:16px;border:1px solid #363730;border-radius:18px;background:#070914;color:#fff;cursor:pointer;text-align:left;transition:.2s}
-.tool-card:hover{transform:translateY(-2px);border-color:#56574e}
-.tool-icon{width:56px;height:56px;flex:0 0 56px;border-radius:17px;display:grid;place-items:center;font-size:25px;background:#0b1224;border:1px solid #222a47}
+.tool-card{width:100%;display:flex;align-items:center;gap:16px;padding:16px;border:1px solid #2b3352;border-radius:18px;background:#090d1f;color:#fff;cursor:pointer;text-align:left;transition:.2s}
+.tool-card:hover{transform:translateY(-2px);border-color:var(--cyan);background:#0e1533;box-shadow:0 8px 24px rgba(32,231,255,.12)}
+.tool-icon{width:54px;height:54px;flex:0 0 54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#0e1633,#16204a);border:1px solid #2f3a66;color:var(--cyan)}
+.tool-svg{width:26px;height:26px;stroke:currentColor;fill:none}
 .tool-copy{min-width:0;flex:1}
-.tool-name{font-size:19px;font-weight:800;line-height:1.15}
-.tool-desc{font-size:13px;color:#9b978d;margin-top:5px}
-.tool-arrow{font-size:32px;color:#d7d3c8}
-.tool-badge{display:inline-block;margin-left:7px;padding:4px 8px;border-radius:7px;font-size:10px;background:#073c26;color:#9be8bd}
-.tool-note{font-size:10px;color:#77746c;margin:10px 3px 0}
-.modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.72);backdrop-filter:blur(8px)}
+.tool-name{font-size:18px;font-weight:800;line-height:1.15;display:flex;align-items:center;gap:8px}
+.tool-desc{font-size:12px;color:#9aa3bd;margin-top:5px}
+.tool-arrow{font-size:24px;color:#707c9e}
+.tool-badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;background:#0c3e29;color:var(--green);border:1px solid #1c6b48}
+.tool-note{font-size:10px;color:#707c9e;margin:12px 3px 0}
+.modal{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.75);backdrop-filter:blur(8px)}
 .modal.open{display:flex}
-.modal-card{width:min(600px,100%);position:relative;max-height:calc(100vh - 36px);overflow:auto;padding:18px;background:linear-gradient(145deg,#0f1327,#080b18);border:1px solid #343b60;border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.65)}
-.modal-card h3{padding-right:45px;margin-top:0}
+.modal-card{width:min(600px,100%);position:relative;max-height:calc(100vh - 36px);overflow:auto;padding:20px;background:linear-gradient(145deg,#0f1327,#080b18);border:1px solid #343b60;border-radius:22px;box-shadow:0 30px 90px rgba(0,0,0,.65)}
+.modal-card h3{padding-right:45px;margin-top:0;font-size:20px}
 .lookup-row{display:flex;gap:8px}
-.lookup-row input,.auth-row input{border:1px solid #34352e;border-radius:10px;padding:13px;background:#0b1022;flex:1;color:#eee9de}
+.lookup-row input,.auth-row input{border:1px solid #343b60;border-radius:10px;padding:13px;background:#0b1022;flex:1;color:#eee9de}
 .result{margin-top:14px}
 .result-box{padding:14px;border:1px solid #30395f;border-radius:14px;background:#0b1022}
 .pass-card{max-width:600px;margin:0 auto;overflow:hidden}
-.pass-top{display:flex;justify-content:space-between;padding:18px;border-bottom:1px dashed #55564c}
+.pass-top{display:flex;justify-content:space-between;align-items:center;padding:18px;border-bottom:1px dashed #3f476c}
+.pass-brand-group{display:flex;align-items:center;gap:10px}
+.pass-brand-logo{width:32px;height:32px;border-radius:8px;border:1px solid rgba(32,231,255,.4)}
 .pass-brand{font-weight:900;color:var(--cyan);letter-spacing:2px}
 .pass-label{font-size:10px;color:var(--lime);font-weight:900}
 .pass-body{padding:22px}
@@ -137,11 +198,60 @@ footer b{color:var(--cyan)}
 #qrcode{background:#fff;padding:7px;width:140px;height:140px;border-radius:8px}
 .pass-bottom{padding:13px 18px;background:#070914;color:#7c849c;font-size:10px;display:flex;justify-content:space-between}
 .pass-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
-.scanner-card{width:min(560px,100%);max-height:calc(100vh - 28px);overflow:auto;padding:18px}
+.scanner-card{width:min(560px,100%);max-height:calc(100vh - 28px);overflow:auto;padding:20px}
 .scanner-head{padding:0 0 14px}
 #reader{margin-top:14px;border-radius:14px;overflow:hidden;border:1px solid #2e3a5d;background:#050711;min-height:220px}
 .scanner-status{margin-top:10px;padding:11px;border-radius:10px;background:#0b1022;color:#9ea8c2;font-size:12px;line-height:1.4}
 .auth-row{display:flex;gap:8px;margin:12px 0}
+
+/* ATTENDANCE SUCCESS SCANNER CARD */
+.scan-result-card{
+  margin-top:16px;padding:16px;border-radius:16px;background:#0a0e23;
+  border:1px solid #2a3763;animation:popIn .3s ease-out;box-shadow:0 8px 30px rgba(0,0,0,.45);
+}
+@keyframes popIn {
+  from { opacity:0; transform:scale(0.96); }
+  to { opacity:1; transform:scale(1); }
+}
+.scan-banner-success{
+  background:linear-gradient(135deg,rgba(125,255,189,0.18),rgba(32,231,255,0.1));
+  border:2px solid var(--green);border-radius:14px;padding:16px;text-align:center;
+  margin-bottom:14px;box-shadow:0 0 30px rgba(125,255,189,0.3);
+}
+.scan-banner-warning{
+  background:linear-gradient(135deg,rgba(255,209,102,0.18),rgba(255,107,138,0.1));
+  border:2px solid #ffd166;border-radius:14px;padding:16px;text-align:center;
+  margin-bottom:14px;box-shadow:0 0 30px rgba(255,209,102,0.3);
+}
+.scan-banner-title{
+  font-size:20px;font-weight:900;letter-spacing:0.5px;color:#ffffff;
+  text-shadow:0 0 12px rgba(125,255,189,0.6);
+}
+.scan-banner-warning .scan-banner-title{
+  color:#ffd166;text-shadow:0 0 12px rgba(255,209,102,0.6);
+}
+.scan-banner-sub{font-size:12px;color:#d2daf5;margin-top:5px;font-weight:600}
+.scan-details-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scan-detail-item{background:#0e1533;border:1px solid #25335e;border-radius:10px;padding:10px 12px}
+.scan-detail-item.full-width{
+  grid-column:1 / -1;background:linear-gradient(135deg,#131c44,#0e1533);
+  border-color:#38487e;
+}
+.scan-detail-item .lbl{display:block;font-size:9.5px;color:#8593b8;letter-spacing:1.2px;font-weight:800;text-transform:uppercase;margin-bottom:3px}
+.scan-detail-item .val{display:block;font-size:13px;color:#f0f4ff;font-weight:700;word-break:break-word}
+.scan-detail-item .val.highlight{font-size:18px;color:var(--cyan);font-weight:900}
+
+/* NEXT STUDENT ATTENDANCE BUTTON */
+.btn-next-student{
+  width:100%;margin-top:16px;padding:15px;border:0;border-radius:12px;
+  background:linear-gradient(90deg,#00f2fe,#4facfe);color:#03091e;font-size:15px;
+  font-weight:900;letter-spacing:0.8px;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;gap:10px;box-shadow:0 0 25px rgba(0,242,254,.4);transition:.2s;
+}
+.btn-next-student:hover{
+  transform:translateY(-2px);box-shadow:0 0 35px rgba(0,242,254,.6);filter:brightness(1.1);
+}
+
 .admin-table-wrap{overflow:auto;max-height:52vh;margin-top:12px;border:1px solid #292d48;border-radius:12px}
 table.admin-table{width:100%;border-collapse:collapse;font-size:11px}
 table.admin-table th{position:sticky;top:0;background:#12162a;color:#cfd6f0;text-align:left;padding:9px;border-bottom:1px solid #292d48}
@@ -149,24 +259,29 @@ table.admin-table td{padding:9px;border-bottom:1px solid #1c2038;color:#dbe0f5;w
 table.admin-table tr:nth-child(even){background:#0b0e1c}
 .badge-checked{color:var(--green);font-weight:800}
 .badge-registered{color:#ffd166;font-weight:800}
+.badge-warn{color:#ffd166;font-weight:800}
 .error{color:#ff9bad}
 .help{font-size:12px;color:#9aa3bd;line-height:1.5}
 .hidden{display:none}
+
 @media(max-width:650px){
   .container{width:min(100% - 18px,960px)}
   .topbar-inner{height:58px}
   .pill{display:none}
-  .event-info-card{padding:17px;border-radius:18px}
+  .event-info-card{padding:18px;border-radius:18px}
+  .hero-logo{width:56px;height:56px}
   .event-meta{grid-template-columns:1fr}
   .experience-list{grid-template-columns:1fr}
   .college-line{flex-direction:column;gap:4px}
-  .form-card{padding:9px}
+  .form-card{padding:12px}
   .actions{align-items:flex-end}
   .status{max-width:160px}
   .lookup-row,.auth-row{flex-direction:column}
   .pass-grid{grid-template-columns:1fr}
   #qrcode{margin:auto}
   .pass-bottom{gap:8px;flex-direction:column}
+  .scan-details-grid{grid-template-columns:1fr}
+  .submit-details-box{grid-template-columns:1fr}
 }
 @media print{
   body *{visibility:hidden!important}
@@ -178,15 +293,22 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
  
 <body>
  
+<!-- TOPBAR -->
 <div class="topbar">
   <div class="container topbar-inner">
-    <button class="menu" type="button" onclick="openTools()">☰ &nbsp; MENU & TOOLS</button>
-    <div class="brand">SECURE<span>X</span></div>
+    <button class="menu" type="button" onclick="openTools()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      MENU &amp; TOOLS
+    </button>
+    <div class="brand-group">
+      <img src="logo.png" alt="Logo" class="brand-logo" onerror="this.style.display='none'">
+      <div class="brand">SECURE<span>X</span></div>
+    </div>
     <div class="pill">SecureX Cyber Club</div>
   </div>
 </div>
  
-<!-- MENU -->
+<!-- MENU / TOOLS OVERLAY -->
 <div class="overlay" id="toolsOverlay" onclick="closeTools(event)">
   <div class="drawer" onclick="event.stopPropagation()">
     <div class="drawer-head">
@@ -196,24 +318,71 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
     <section class="tools-section">
       <h2 class="tools-title">EVENT PORTALS</h2>
       <div class="tool-list">
+        <!-- 1. REGISTRATION -->
         <button class="tool-card" type="button" onclick="goRegistration()">
-          <div class="tool-icon">▤</div>
-          <div class="tool-copy"><div class="tool-name">Event Registration</div><div class="tool-desc">Register for the event</div></div>
+          <div class="tool-icon">
+            <svg class="tool-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <div class="tool-copy">
+            <div class="tool-name">Event Registration</div>
+            <div class="tool-desc">Register for Cyber Quest</div>
+          </div>
           <div class="tool-arrow">›</div>
         </button>
+
+        <!-- 2. FIND E-PASS -->
         <button class="tool-card" type="button" onclick="closeTools();openLookup()">
-          <div class="tool-icon">⌕</div>
-          <div class="tool-copy"><div class="tool-name">Find / Get My E-Pass</div><div class="tool-desc">Search by Roll No, Email or Registration ID</div></div>
+          <div class="tool-icon">
+            <svg class="tool-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="M7 15h0M2 9.5a2.5 2.5 0 0 1 0 5M22 9.5a2.5 2.5 0 0 0 0 5"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </div>
+          <div class="tool-copy">
+            <div class="tool-name">Find / Get My E-Pass</div>
+            <div class="tool-desc">Search by Roll No, Email or Registration ID</div>
+          </div>
           <div class="tool-arrow">›</div>
         </button>
+
+        <!-- 3. COORDINATOR SCANNER -->
         <button class="tool-card" type="button" onclick="closeTools();openScanner()">
-          <div class="tool-icon">⌗</div>
-          <div class="tool-copy"><div class="tool-name">Coordinator Scanner <span class="tool-badge">Door Pass</span></div><div class="tool-desc">QR attendance check-in for coordinators</div></div>
+          <div class="tool-icon">
+            <svg class="tool-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+              <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+              <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+              <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+              <rect x="7" y="7" width="10" height="10" rx="1"></rect>
+              <line x1="7" y1="12" x2="17" y2="12"></line>
+            </svg>
+          </div>
+          <div class="tool-copy">
+            <div class="tool-name">Coordinator Scanner <span class="tool-badge">Door Pass</span></div>
+            <div class="tool-desc">Scan Roll No / QR for attendance check-in</div>
+          </div>
           <div class="tool-arrow">›</div>
         </button>
+
+        <!-- 4. FACULTY / ADMIN -->
         <button class="tool-card" type="button" onclick="closeTools();openAdmin()">
-          <div class="tool-icon">♢</div>
-          <div class="tool-copy"><div class="tool-name">HOD / Faculty Panel</div><div class="tool-desc">Attendance records &amp; CSV export</div></div>
+          <div class="tool-icon">
+            <svg class="tool-svg" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="m9 12 2 2 4-4"></path>
+            </svg>
+          </div>
+          <div class="tool-copy">
+            <div class="tool-name">HOD / Faculty Panel</div>
+            <div class="tool-desc">Attendance records &amp; CSV export</div>
+          </div>
           <div class="tool-arrow">›</div>
         </button>
       </div>
@@ -222,46 +391,94 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
   </div>
 </div>
  
-<!-- LOOKUP -->
+<!-- LOOKUP MODAL -->
 <section id="lookupPanel" class="modal" onclick="closeLookup(event)">
   <div class="modal-card" onclick="event.stopPropagation()">
     <button class="lookup-close" type="button" onclick="closeLookup()">×</button>
     <h3>Find / Get My E-Pass</h3>
-    <p class="help">Search using Roll Number, Email or Registration ID.</p>
+    <p class="help">Search using Roll Number, Email or 4-digit Registration ID.</p>
     <div class="lookup-row">
-      <input id="lookupQuery" placeholder="Enter roll no., email or SX-...">
+      <input id="lookupQuery" placeholder="Enter Roll No, Email or 4-digit Reg ID (e.g. 22CS014 or 4892)">
       <button class="btn" type="button" onclick="findPass()">SEARCH</button>
     </div>
     <div class="result" id="lookupResult"></div>
   </div>
 </section>
  
-<!-- SCANNER -->
+<!-- COORDINATOR SCANNER MODAL -->
 <section class="modal" id="scannerPanel" onclick="closeScanner(event)">
   <div class="scanner-card" onclick="event.stopPropagation()">
     <div class="scanner-head">
       <div><div class="kicker">SECUREX</div><h3>COORDINATOR SCANNER</h3></div>
       <button class="scanner-close" type="button" onclick="closeScanner()">×</button>
     </div>
-    <p class="help">Enter coordinator password, then click START to activate camera.</p>
+    <p class="help">Enter coordinator password, then click START CAMERA.</p>
     <div class="auth-row">
       <input id="coordinatorPin" type="password" placeholder="Coordinator Password">
-      <button class="btn" id="startScannerBtn" type="button" onclick="startScanner()">START</button>
+      <button class="btn" id="startScannerBtn" type="button" onclick="startScanner()">START CAMERA</button>
     </div>
     
     <!-- Live Camera Box -->
     <div id="reader"></div>
     <div class="scanner-status" id="scannerStatus">Scanner is not started.</div>
 
-    <div style="margin-top:16px;color:#8f98b2;font-size:11px">Camera not working? Enter the Registration ID manually.</div>
+    <!-- ATTENDANCE SUCCESS RESULT CARD -->
+    <div id="scanResultBox" class="scan-result-card hidden">
+      <div id="scanResultBanner" class="scan-banner-success">
+        <div class="scan-banner-title">🎉 ATTENDANCE MARKED SUCCESSFULLY!</div>
+        <div class="scan-banner-sub">Cyber Quest Check-in Verified</div>
+      </div>
+      <div class="scan-details-grid">
+        <div class="scan-detail-item full-width">
+          <span class="lbl">Student Name</span>
+          <strong class="val highlight" id="scanResName">—</strong>
+        </div>
+        <div class="scan-detail-item">
+          <span class="lbl">Roll Number</span>
+          <strong class="val" id="scanResRoll">—</strong>
+        </div>
+        <div class="scan-detail-item">
+          <span class="lbl">Registration ID</span>
+          <strong class="val" id="scanResRegId">—</strong>
+        </div>
+        <div class="scan-detail-item">
+          <span class="lbl">Branch &amp; Section</span>
+          <strong class="val" id="scanResBranchSec">—</strong>
+        </div>
+        <div class="scan-detail-item">
+          <span class="lbl">Academic Year</span>
+          <strong class="val" id="scanResYear">—</strong>
+        </div>
+        <div class="scan-detail-item">
+          <span class="lbl">Mobile / Email</span>
+          <strong class="val" id="scanResContact">—</strong>
+        </div>
+        <div class="scan-detail-item">
+          <span class="lbl">Check-In Time</span>
+          <strong class="val" id="scanResTime">—</strong>
+        </div>
+        <div class="scan-detail-item full-width">
+          <span class="lbl">Status</span>
+          <strong class="val badge-checked" id="scanResStatus">—</strong>
+        </div>
+      </div>
+
+      <!-- NEXT STUDENT BUTTON -->
+      <button type="button" class="btn-next-student" onclick="resetForNextStudent()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+        NEXT STUDENT ATTENDANCE
+      </button>
+    </div>
+
+    <div style="margin-top:16px;color:#8f98b2;font-size:11px">Camera not working? Enter student Roll Number or 4-digit Reg ID:</div>
     <div class="auth-row">
-      <input id="manualRegId" placeholder="SX-...">
-      <button class="btn" type="button" onclick="manualCheck()">CHECK</button>
+      <input id="manualRegId" placeholder="e.g. 22CS014 or 4892">
+      <button class="btn" type="button" onclick="manualCheck()">CHECK-IN</button>
     </div>
   </div>
 </section>
  
-<!-- ADMIN -->
+<!-- ADMIN MODAL -->
 <section id="adminPanel" class="modal" onclick="closeAdmin(event)">
   <div class="modal-card" onclick="event.stopPropagation()">
     <button class="lookup-close" type="button" onclick="closeAdmin()">×</button>
@@ -285,27 +502,66 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
   </div>
 </section>
  
+<!-- MAIN HERO & EVENT INFO -->
 <main class="container">
 <section class="hero">
   <section class="event-info-card">
-    <div class="event-brand">SECUREX CYBER CLUB</div>
-    <h1>CYBER QUEST</h1>
-    <p class="event-tagline">SECUREX '26</p>
+    <div class="event-header-top">
+      <div>
+        <div class="event-brand">SECUREX CYBER CLUB</div>
+        <h1>CYBER QUEST</h1>
+        <p class="event-tagline">SECUREX</p>
+      </div>
+      <img src="logo.png" alt="SecureX Cyber Club Logo" class="hero-logo" onerror="this.style.display='none'">
+    </div>
+
     <p class="event-desc">THINK. EXPLORE. LEARN. AWARE. Cyber Challenges, real-world scenario awareness, exciting prizes and opportunities to learn, compete and grow together.</p>
     <span class="fee-badge">Registration: FREE</span>
  
+    <!-- DISTINCT UNIQUE SVG ICONS FOR DATE, TIME & VENUE -->
     <div class="event-meta">
+      <!-- DATE (CYAN NEON) -->
       <div class="meta-item">
-        <span class="meta-icon">📅</span>
+        <div class="meta-icon-box meta-icon-date">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="3" ry="3"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <circle cx="8" cy="14" r="1.2" fill="currentColor"></circle>
+            <circle cx="12" cy="14" r="1.2" fill="currentColor"></circle>
+            <circle cx="16" cy="14" r="1.2" fill="currentColor"></circle>
+            <circle cx="8" cy="18" r="1.2" fill="currentColor"></circle>
+            <circle cx="12" cy="18" r="1.2" fill="currentColor"></circle>
+          </svg>
+        </div>
         <div><small>DATE</small><strong>2 September 2026</strong><em>Wednesday</em></div>
       </div>
+
+      <!-- TIME (LIME NEON) -->
       <div class="meta-item">
-        <span class="meta-icon">⏰</span>
-        <div><small>TIME</small><strong>2 PM Onwards</strong></div>
+        <div class="meta-icon-box meta-icon-time">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9.5"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+            <line x1="12" y1="2" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22"></line>
+            <line x1="2" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22" y2="12"></line>
+          </svg>
+        </div>
+        <div><small>TIME</small><strong>2 PM Onwards</strong><em>Starts on time</em></div>
       </div>
+
+      <!-- VENUE (PINK NEON) -->
       <div class="meta-item">
-        <span class="meta-icon">📍</span>
-        <div><small>VENUE</small><strong>B-120 Seminar Hall</strong></div>
+        <div class="meta-icon-box meta-icon-venue">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 6.5-9 13-9 13s-9-6.5-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3.2"></circle>
+          </svg>
+        </div>
+        <div><small>VENUE</small><strong>B-120 Seminar Hall</strong><em>Campus Hall</em></div>
       </div>
     </div>
  
@@ -331,7 +587,7 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
   </section>
 </section>
  
-<!-- REGISTRATION -->
+<!-- REGISTRATION FORM -->
 <div class="form-wrap" id="registrationFormSection">
   <div class="form-card">
     <div class="success" id="formSuccess"></div>
@@ -339,43 +595,48 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
     <form id="registrationForm" onsubmit="return false;">
       <div class="field">
         <label>Full Name <span class="req">*</span></label>
-        <input id="name" required placeholder="Your answer" maxlength="80">
+        <input type="text" id="name" required placeholder="Enter full name" maxlength="80">
       </div>
       <div class="field">
         <label>Roll Number <span class="req">*</span></label>
-        <input id="roll" required placeholder="e.g. 22CS014" maxlength="30">
+        <input type="text" id="roll" required placeholder="e.g. 22CS014" maxlength="30">
       </div>
       <div class="field">
         <label>Email Address <span class="req">*</span></label>
-        <input id="email" type="email" required placeholder="e.g. yourname@gmail.com">
+        <input type="email" id="email" required placeholder="e.g. yourname@gmail.com">
       </div>
       <div class="field">
         <label>WhatsApp / Mobile Number <span class="req">*</span></label>
-        <input id="mobile" inputmode="numeric" required placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}">
+        <input type="tel" id="mobile" inputmode="numeric" required placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}">
       </div>
+
+      <!-- ACADEMIC YEAR (ONLY 2ND & 3RD YEAR) -->
       <div class="field">
         <label>Academic Year <span class="req">*</span></label>
         <div class="options" data-group="year" id="yearOptions">
-          <label class="option"><input type="radio" name="year" value="1st Year">1st Year</label>
           <label class="option"><input type="radio" name="year" value="2nd Year">2nd Year</label>
           <label class="option"><input type="radio" name="year" value="3rd Year">3rd Year</label>
-          <label class="option"><input type="radio" name="year" value="4th Year">4th Year</label>
         </div>
       </div>
+
+      <!-- BRANCH SELECTION -->
       <div class="field">
         <label>Branch <span class="req">*</span></label>
         <select id="branch" required>
           <option value="">Select Branch</option>
           <option value="CSE">Computer Science (CSE)</option>
-          <option value="CSE-AI">CSE (AI &amp; ML)</option>
-          <option value="CSE-DS">CSE (Data Science)</option>
-          <option value="IT">Information Technology (IT)</option>
+          <option value="CSE-AIML">CSE (AI &amp; ML)</option>
+          <option value="CSE-IOT">CSE (IoT)</option>
+          <option value="CSE-DF">CSE (Data Science / DF)</option>
           <option value="ECE">Electronics &amp; Communication (ECE)</option>
+          <option value="EEE">Electrical &amp; Electronics (EEE)</option>
           <option value="ME">Mechanical Engineering (ME)</option>
           <option value="CE">Civil Engineering (CE)</option>
           <option value="OTHER">Other</option>
         </select>
       </div>
+
+      <!-- CLASS SECTION SELECTION (A to J + Other) -->
       <div class="field">
         <label>Section <span class="req">*</span></label>
         <select id="section" required>
@@ -385,6 +646,11 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
           <option value="C">Section C</option>
           <option value="D">Section D</option>
           <option value="E">Section E</option>
+          <option value="F">Section F</option>
+          <option value="G">Section G</option>
+          <option value="H">Section H</option>
+          <option value="I">Section I</option>
+          <option value="J">Section J</option>
           <option value="OTHER">Other</option>
         </select>
       </div>
@@ -402,7 +668,10 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
   <div id="passPrintArea">
     <div class="pass-card">
       <div class="pass-top">
-        <div class="pass-brand">SECURE<span style="color:var(--cyan)">X</span></div>
+        <div class="pass-brand-group">
+          <img src="logo.png" alt="Logo" class="pass-brand-logo" onerror="this.style.display='none'">
+          <div class="pass-brand">SECURE<span style="color:var(--cyan)">X</span></div>
+        </div>
         <div class="pass-label">EVENT E-PASS</div>
       </div>
       <div class="pass-body">
@@ -410,11 +679,12 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
         <div class="pass-event" id="passEvent">—</div>
         <div class="pass-grid">
           <div class="pass-details">
-            <p><b>Registration ID:</b> <span id="passRegId">—</span></p>
-            <p><b>Roll Number:</b> <span id="passRoll">—</span></p>
+            <p><b>Registration ID:</b> <span id="passRegId" style="color:var(--cyan);font-size:16px;font-weight:bold">—</span></p>
+            <p><b>Roll Number:</b> <span id="passRoll" style="color:#ffffff;font-weight:bold">—</span></p>
             <p><b>Branch / Section:</b> <span id="passBranchSection">—</span></p>
             <p><b>Academic Year:</b> <span id="passYear">—</span></p>
             <p><b>Email:</b> <span id="passEmail">—</span></p>
+            <p><b>Mobile:</b> <span id="passMobile">—</span></p>
             <p><b>Date / Time:</b> <span id="passDateTime">—</span></p>
             <p><b>Venue:</b> <span id="passVenue">—</span></p>
             <p><b>Status:</b> <span id="passStatus">—</span></p>
@@ -423,7 +693,7 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
         </div>
       </div>
       <div class="pass-bottom">
-        <span>Present this pass at entry</span>
+        <span>Scan Roll No QR at entrance door</span>
         <span id="passCheckInTime"></span>
       </div>
     </div>
@@ -442,9 +712,9 @@ table.admin-table tr:nth-child(even){background:#0b0e1c}
  
 <script>
 /* ============================================================
-   CONFIG & API CONNECTOR (PASTE YOUR APPS SCRIPT URL HERE)
+   CONFIG & API CONNECTOR (APPS SCRIPT URL)
    ============================================================ */
-const API_URL = "https://script.google.com/macros/s/AKfycbyOFTr1WnDlVtR3-aYCtilWLCxrkL7e2yx_Iyee0KOJwbg3e8tg-M0i4KkDRx_QWi87Ow/exec"; // <-- Paste your Web App URL here
+const API_URL = "https://script.google.com/macros/s/AKfycbwFx4RHMh6vqo3B8BBNJLVVEmm37aF-9i5MgUED7y9njs6P8YYFqCd9ZecWKTvvhmNkuA/exec";
 
 async function apiRequest(action, data) {
   try {
@@ -540,9 +810,20 @@ async function submitRegistration(){
   btn.disabled = false;
   if(res && res.success){
     var successBox = document.getElementById('formSuccess');
+    
+    // RENDER FULL STUDENT DETAILS ON SUBMIT
     successBox.innerHTML =
-      '<div class="submit-success-title">Registration Successful!</div>' +
-      '<div class="submit-success-id">Your Registration ID: ' + escapeHtml(res.registrationId) + '</div>';
+      '<div class="submit-success-title">✅ Registration Successful!</div>' +
+      '<div>Registration ID: <b style="color:var(--cyan);font-size:16px">' + escapeHtml(res.registrationId) + '</b></div>' +
+      '<div class="submit-details-box">' +
+        '<div class="submit-detail-row"><span>Student Name</span><strong>' + escapeHtml(res.name) + '</strong></div>' +
+        '<div class="submit-detail-row"><span>Roll Number</span><strong>' + escapeHtml(res.roll) + '</strong></div>' +
+        '<div class="submit-detail-row"><span>Branch &amp; Sec</span><strong>' + escapeHtml(res.branch) + ' - ' + escapeHtml(res.section) + '</strong></div>' +
+        '<div class="submit-detail-row"><span>Academic Year</span><strong>' + escapeHtml(res.year) + '</strong></div>' +
+        '<div class="submit-detail-row"><span>Email</span><strong>' + escapeHtml(res.email) + '</strong></div>' +
+        '<div class="submit-detail-row"><span>Mobile</span><strong>' + escapeHtml(res.mobile) + '</strong></div>' +
+      '</div>';
+    
     successBox.classList.add('show');
     statusEl.textContent = '';
     renderPass(res);
@@ -554,7 +835,7 @@ async function submitRegistration(){
 }
  
 /* ============================================================
-   E-PASS RENDERING
+   E-PASS RENDERING (QR ENCODES ROLL NUMBER)
    ============================================================ */
 function renderPass(data){
   document.getElementById('passName').textContent = data.name || '—';
@@ -564,15 +845,17 @@ function renderPass(data){
   document.getElementById('passBranchSection').textContent = (data.branch || '—') + ' / ' + (data.section || '—');
   document.getElementById('passYear').textContent = data.year || '—';
   document.getElementById('passEmail').textContent = data.email || '—';
+  document.getElementById('passMobile').textContent = data.mobile || '—';
   document.getElementById('passDateTime').textContent = (data.date || '2 September 2026') + ' · ' + (data.time || '2 PM Onwards');
   document.getElementById('passVenue').textContent = data.venue || 'B-120 Seminar Hall';
   document.getElementById('passStatus').textContent = data.status || 'REGISTERED';
   document.getElementById('passCheckInTime').textContent = data.checkInTime ? ('Checked in: ' + data.checkInTime) : '';
  
+  // QR CODE CONTAINS ROLL NUMBER FOR INSTANT ATTENDANCE
   var qrEl = document.getElementById('qrcode');
   qrEl.innerHTML = '';
   new QRCode(qrEl, {
-    text: data.registrationId || '',
+    text: String(data.roll || data.registrationId || ''),
     width: 128,
     height: 128,
     colorDark: '#000000',
@@ -608,8 +891,8 @@ async function findPass(){
     resultEl.innerHTML =
       '<div class="result-box">' +
         '<p><b>' + escapeHtml(res.name) + '</b></p>' +
-        '<p>Reg ID: ' + escapeHtml(res.registrationId) + '</p>' +
-        '<p>Roll: ' + escapeHtml(res.roll) + ' &middot; ' + escapeHtml(res.branch) + ' / ' + escapeHtml(res.section) + '</p>' +
+        '<p>Roll: <b style="color:#fff">' + escapeHtml(res.roll) + '</b> &middot; Reg ID: <b style="color:var(--cyan)">' + escapeHtml(res.registrationId) + '</b></p>' +
+        '<p>Branch: ' + escapeHtml(res.branch) + ' &middot; Sec: ' + escapeHtml(res.section) + ' &middot; Year: ' + escapeHtml(res.year) + '</p>' +
         '<p>Status: <span class="' + badgeClass + '">' + escapeHtml(res.status) + '</span></p>' +
         '<button class="btn" type="button" id="viewPassBtn">VIEW E-PASS</button>' +
       '</div>';
@@ -624,7 +907,7 @@ async function findPass(){
 }
  
 /* ============================================================
-   COORDINATOR SCANNER (100% NATIVE IN VS CODE)
+   COORDINATOR SCANNER (PASSWORD CHECKED FIRST BEFORE CAMERA)
    ============================================================ */
 function openScanner(){ document.getElementById('scannerPanel').classList.add('open'); }
 function closeScanner(e){
@@ -640,7 +923,7 @@ function setScannerStatus(msg, isError){
   el.style.color = isError ? '#ff9bad' : '#9ea8c2';
 }
  
-function startScanner(){
+async function startScanner(){
   var pin = document.getElementById('coordinatorPin').value.trim();
   if(!pin){ 
     setScannerStatus('❌ Enter coordinator password first.', true); 
@@ -650,13 +933,25 @@ function startScanner(){
     setScannerStatus('Scanner is already running.', false); 
     return; 
   }
- 
-  coordinatorAuthPassword = pin;
- 
+
   var btn = document.getElementById('startScannerBtn');
   if(btn) btn.disabled = true;
+  setScannerStatus('Verifying password…', false);
+
+  // 1. Pehle Backend se Password Verify hoga
+  const res = await apiRequest("verifyFacultyPassword", { password: pin });
+  
+  // Agar password galat hai toh Camera Start NAHI hoga
+  if(!res || !res.success){
+    if(btn) btn.disabled = false;
+    setScannerStatus('❌ Incorrect password! Camera will not open.', true);
+    return;
+  }
+
+  // 2. Password sahi hone par hi camera start hoga
+  coordinatorAuthPassword = pin;
   setScannerStatus('Starting camera…', false);
- 
+
   if (html5QrCode) {
     try { html5QrCode.clear(); } catch(e){}
     html5QrCode = null;
@@ -671,7 +966,6 @@ function startScanner(){
     }
   };
  
-  // Starts directly with rear camera
   html5QrCode.start(
     { facingMode: "environment" },
     qrConfig,
@@ -680,7 +974,7 @@ function startScanner(){
   ).then(function(){
     isCameraRunning = true;
     if(btn) btn.disabled = false;
-    setScannerStatus('✅ Camera active. Point at student QR code.', false);
+    setScannerStatus('✅ Verified! Camera active. Point at student Roll No QR.', false);
   }).catch(function(err){
     if(btn) btn.disabled = false;
     setScannerStatus('❌ Camera error: ' + err, true);
@@ -702,7 +996,7 @@ function stopCamera(){
 function onScanSuccess(decodedText){
   var now = Date.now();
   if(isProcessingScan) return;
-  if(decodedText === lastScannedId && (now - lastScannedAt) < 4000) return;
+  if(decodedText === lastScannedId && (now - lastScannedAt) < 3000) return;
  
   lastScannedId = decodedText;
   lastScannedAt = now;
@@ -713,27 +1007,76 @@ function manualCheck(){
   var pin = document.getElementById('coordinatorPin').value.trim();
   var regId = document.getElementById('manualRegId').value.trim();
   if(!pin){ setScannerStatus('❌ Enter coordinator password first.', true); return; }
-  if(!regId){ setScannerStatus('❌ Enter Registration ID.', true); return; }
+  if(!regId){ setScannerStatus('❌ Enter Student Roll Number or Reg ID.', true); return; }
   coordinatorAuthPassword = pin;
   performCheckIn(regId);
 }
  
-async function performCheckIn(regId){
+async function performCheckIn(identifier){
   if(isProcessingScan) return;
   isProcessingScan = true;
-  setScannerStatus('Checking in ' + regId + ' …', false);
+  setScannerStatus('⏳ Verifying Roll No / ID: ' + identifier + ' …', false);
  
+  var resultBox = document.getElementById('scanResultBox');
+  if(resultBox) resultBox.classList.add('hidden');
+
   const res = await apiRequest("markAttendanceSecure", {
-    registrationId: regId,
+    registrationId: identifier,
     password: coordinatorAuthPassword
   });
 
   isProcessingScan = false;
   if(res && res.success){
+    if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
+    showScanResult(res);
     setScannerStatus((res.alreadyCheckedIn ? '⚠️ ' : '✅ ') + res.message, res.alreadyCheckedIn);
   } else {
-    setScannerStatus('❌ ' + ((res && res.message) || 'Check-in failed.'), true);
+    if(navigator.vibrate) navigator.vibrate(300);
+    setScannerStatus('❌ ' + ((res && res.message) || 'Check-in failed. Roll No not found.'), true);
   }
+}
+
+function showScanResult(data){
+  var resultBox = document.getElementById('scanResultBox');
+  var banner = document.getElementById('scanResultBanner');
+  if(!resultBox || !banner) return;
+
+  if(data.alreadyCheckedIn){
+    banner.className = 'scan-banner-warning';
+    banner.innerHTML = '<div class="scan-banner-title">⚠️ ALREADY CHECKED IN</div><div class="scan-banner-sub">This student was marked present earlier</div>';
+  } else {
+    banner.className = 'scan-banner-success';
+    banner.innerHTML = '<div class="scan-banner-title">🎉 ATTENDANCE MARKED SUCCESSFULLY!</div><div class="scan-banner-sub">Cyber Quest Check-in Verified</div>';
+  }
+
+  // Populate All Student Details
+  document.getElementById('scanResName').textContent = data.name || '—';
+  document.getElementById('scanResRoll').textContent = data.roll || '—';
+  document.getElementById('scanResRegId').textContent = data.registrationId || '—';
+
+  var branchText = data.branch || '';
+  var secText = data.section ? ('Sec ' + data.section) : '';
+  var branchSecCombined = (branchText && secText) ? (branchText + ' - ' + secText) : (branchText || secText || '—');
+
+  document.getElementById('scanResBranchSec').textContent = branchSecCombined;
+  document.getElementById('scanResYear').textContent = data.year || '—';
+  document.getElementById('scanResContact').textContent = (data.mobile || '') + (data.email ? ' / ' + data.email : '');
+  document.getElementById('scanResTime').textContent = data.checkInTime || new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  document.getElementById('scanResStatus').textContent = data.alreadyCheckedIn ? 'ALREADY CHECKED-IN' : 'CHECKED-IN';
+  document.getElementById('scanResStatus').className = 'val ' + (data.alreadyCheckedIn ? 'badge-warn' : 'badge-checked');
+
+  resultBox.classList.remove('hidden');
+}
+
+// NEXT STUDENT ATTENDANCE RESET
+function resetForNextStudent(){
+  var resultBox = document.getElementById('scanResultBox');
+  if(resultBox) resultBox.classList.add('hidden');
+  document.getElementById('manualRegId').value = '';
+  lastScannedId = "";
+  lastScannedAt = 0;
+  setScannerStatus('✅ Ready! Scan next student QR code.', false);
+  document.getElementById('manualRegId').focus();
 }
  
 /* ============================================================
@@ -787,9 +1130,9 @@ function renderAdminTable(rows){
     var badge = String(r.status).toUpperCase() === 'CHECKED-IN' ? 'badge-checked' : 'badge-registered';
     return '<tr>' +
       '<td>' + escapeHtml(r.timestamp) + '</td>' +
-      '<td>' + escapeHtml(r.registrationId) + '</td>' +
+      '<td><b>' + escapeHtml(r.registrationId) + '</b></td>' +
       '<td>' + escapeHtml(r.name) + '</td>' +
-      '<td>' + escapeHtml(r.roll) + '</td>' +
+      '<td><b>' + escapeHtml(r.roll) + '</b></td>' +
       '<td>' + escapeHtml(r.email) + '</td>' +
       '<td>' + escapeHtml(r.mobile) + '</td>' +
       '<td>' + escapeHtml(r.year) + '</td>' +
